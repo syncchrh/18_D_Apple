@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="sseung_gpu">
+    <serverData>
+      <paths name="sseung_gpu">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/01.Coding/18_D_Apple" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
