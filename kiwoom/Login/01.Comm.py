@@ -65,9 +65,8 @@ class MyWindow(QMainWindow):
         elif rqname == 'opt10005_req':
             date = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, 0, "날짜")
             volume = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, 0, "거래량")
-
-            print("날짜: " + date.strip())
-            print("거래량: " + volume.strip())
+            temp = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "주식일주월시분")
+            print(temp)
 
         #elif rqname == 'opt10081_req':
         #    kospi_list = []
@@ -78,9 +77,15 @@ class MyWindow(QMainWindow):
         #        kospi_list.append(date.split(',') + volume.split(','))
         #    print(kospi_list)
 
-        elif rqname == 'opt10081_req':
+        elif rqname == 'opt10082_req':
             nMaxRow = self.kiwoom.dynamicCall("CommRepeatCnt(QString, QString, QString)", trcode, rqname)
-            temp = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "주식일봉차트조회")
+            temp = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "주식주봉차트조회")
+            print(temp)
+            CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", temp)
+
+        elif rqname == 'opt10086_req':
+            nMaxRow = self.kiwoom.dynamicCall("CommRepeatCnt(QString, QString, QString)", trcode, rqname)
+            temp = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "일별주가")
             print(temp)
             CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", temp)
 
@@ -102,10 +107,10 @@ class MyWindow(QMainWindow):
     def btn2_clicked(self):
         #조회 프로시저
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', '017800')
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '20180320')
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '수정주가구분', '0')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '조회일자', '20180320')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '표시구분', '0')
 
-        self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10081_req', 'opt10081', '0', '0101')
+        self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10082_req', 'opt10082', '0', '0101')
 
 
 
