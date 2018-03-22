@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QAxContainer import *
 from Module_Sseung import CSVFileIO
-
+import csv
 
 
 class MyWindow(QMainWindow):
@@ -55,9 +55,11 @@ class MyWindow(QMainWindow):
             nMaxRow = self.kiwoom.dynamicCall("GetRepeatCnt(QString, QString)", trcode, '주식주봉차트조회')
             #print (nMaxRow)
             data_array = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "주식주봉차트조회")
-            #print(data_array)
 
-            CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", data_array)
+#            CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", data_array[1])
+
+            for i in range(0, nMaxRow):
+                CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", data_array[i])
 
     def btn1_clicked(self):
         print("없어")
@@ -65,10 +67,9 @@ class MyWindow(QMainWindow):
     def btn2_clicked(self):
         #조회 프로시저
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', '017800')
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '20170101')
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '끝일자', '20180321')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '20180321')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '끝일자', '20170101')
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '수정주가구분', '1')
-
         self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10082_req', 'opt10082', '0', '0101')
 
 
