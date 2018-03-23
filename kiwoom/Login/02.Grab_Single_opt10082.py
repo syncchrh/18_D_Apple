@@ -45,6 +45,7 @@ class MyWindow(QMainWindow):
         self.kiwoom.OnReceiveTrData.connect(self.receive_trdata)
 
 
+
     def event_connect(self, err_code):
         #print(err_code)
         if err_code == 0:
@@ -55,18 +56,18 @@ class MyWindow(QMainWindow):
             nMaxRow = self.kiwoom.dynamicCall("GetRepeatCnt(QString, QString)", trcode, '주식주봉차트조회')
             #print (nMaxRow)
             data_array = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "주식주봉차트조회")
-
+            print(screen_no, rqname, trcode, recordname, prev_next)
 #            CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", data_array[1])
 
             for i in range(0, nMaxRow):
-                CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", data_array[i])
+                CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\csv\output_039830.csv", data_array[i])
 
     def btn1_clicked(self):
         print("없어")
 
     def btn2_clicked(self):
         #조회 프로시저
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', '017800')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', "039830")
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '20180321')
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '끝일자', '20170101')
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '수정주가구분', '1')
