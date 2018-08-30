@@ -10,3 +10,9 @@ def setCsv(filename, data):
     csvWriter.writerow(data)
    # f.close()
 
+def setCsvWrite(filename, data):
+    f = open(filename, 'w', encoding='UTF-8', newline="")
+    csvWriter = csv.writer(f)
+    csvWriter.writerow(data)
+   # f.close()
+
