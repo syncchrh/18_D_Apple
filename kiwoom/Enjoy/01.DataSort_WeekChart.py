@@ -23,7 +23,7 @@ plt.style.use('ggplot')
 
 dataName = 'day'
 index = ['CurrentPrice', 'Volume', 'TradingValue', 'Date', 'StartPrice', 'HighPrice', 'LowPrice', 'a', 'b', 'c', 'd', 'e', 'f', 'h']
-df = pd.read_csv("E:\99.Coding\\18_D_Apple\Data\csv\\" + dataName + "data_018000.csv", names=index)
+df = pd.read_csv("E:\99.Coding\\18_D_Apple\Data\csv\\" + dataName + "data_013580.csv", names=index)
 df['Date'] = pd.to_datetime(df['Date'].astype(str), format='%Y%m%d') #Date -> Datetime 변환
 df = df.set_index("Date")
 print(df)
@@ -57,7 +57,7 @@ print(df)
 
 ##데이터 시각화
 df["CurrentPrice"].plot()
-df.Volume.plot(secondary_y=True, style='g')
+#df.LowPrice.plot(secondary_y=True, style='g')
 plt.show()
 
 print(df['Volume'].idxmax())

@@ -56,6 +56,11 @@ class MyWindow(QMainWindow):
         btnGetInformation.move(480, 170)
         btnGetInformation.clicked.connect(self.btnGetInformationDay_clicked)
 
+        ## UI 버튼 (정보 얻기)
+        btnGetInformation = QPushButton("월봉차트정보", self)
+        btnGetInformation.move(350, 170)
+        btnGetInformation.clicked.connect(self.btnGetInformationMonth_clicked)
+
         ## 이벤트
         self.kiwoom.OnEventConnect.connect(self.event_connect)
         self.kiwoom.OnReceiveTrData.connect(self.receive_trdata)
@@ -162,6 +167,14 @@ class MyWindow(QMainWindow):
                 CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\\csv\\weekdata_"+ code + ".csv", x)
             print("종목코드 : " + code + " : 주식주봉차트데이터 저장")
 
+        elif rqname == 'opt10083_req':
+            nMaxRow = self.kiwoom.dynamicCall("CommRepeatCnt(QString, QString, QString)", trcode, rqname)
+            temp = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "주식월봉차트조회")
+            code = self.lineEdit.text()
+            for x in temp :
+                CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\\csv\\monthdata_"+ code + ".csv", x)
+            print("종목코드 : " + code + " : 주식월봉차트데이터 저장")
+
         elif rqname == 'opt10086_req':
             nMaxRow = self.kiwoom.dynamicCall("CommRepeatCnt(QString, QString, QString)", trcode, rqname)
             temp = self.kiwoom.dynamicCall("GetCommDataEx(QString, QString)", trcode, "일별주가")
@@ -211,6 +224,15 @@ class MyWindow(QMainWindow):
         #     self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', kospi_code_list[i])
         #     self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10001_req', 'opt10001', '0','0101')
 
+    #주직일봉차트조회
+    def btnGetInformationDay_clicked(self):
+        #조회 프로시저
+        x = self.lineEdit.text()
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', x)
+        #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '조회일자', '20180320')
+        #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '표시구분', '0')
+        self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10081_req', 'opt10081', '0', '0101')
+
     #주직주봉차트조회
     def btnGetInformationWeek_clicked(self):
         #조회 프로시저
@@ -220,14 +242,16 @@ class MyWindow(QMainWindow):
         #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '표시구분', '0')
         self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10082_req', 'opt10082', '0', '0101')
 
-    #주직일봉차트조회
-    def btnGetInformationDay_clicked(self):
+    #주직월봉차트조회
+    def btnGetInformationMonth_clicked(self):
         #조회 프로시저
         x = self.lineEdit.text()
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', x)
-        #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '조회일자', '20180320')
-        #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '표시구분', '0')
-        self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10081_req', 'opt10081', '0', '0101')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '201801030')
+        #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '끝일자', '0')
+        #self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '수정주가구분', '0')
+        self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10083_req', 'opt10083', '0', '0101')
+
 
 
 if __name__ == "__main__":

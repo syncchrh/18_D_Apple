@@ -60,16 +60,16 @@ class MyWindow(QMainWindow):
 #            CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\output.csv", data_array[1])
 
             for i in range(0, nMaxRow):
-                CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\csv\output_039830.csv", data_array[i])
+                CSVFileIO.setCsv("E:\99.Coding\\18_D_Apple\Data\csv\output_013580.csv", data_array[i])
 
     def btn1_clicked(self):
         print("없어")
 
     def btn2_clicked(self):
         #조회 프로시저
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', "039830")
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '20180321')
-        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '끝일자', '20170101')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '종목코드', "013580")
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '기준일자', '20181025')
+        self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '끝일자', '20100101')
         self.kiwoom.dynamicCall("SetInputValue(QString, QString)", '수정주가구분', '1')
         self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", 'opt10082_req', 'opt10082', '0', '0101')
 
